@@ -75,9 +75,10 @@ define( function ( require ) {
           }
       };
 
-      this.play = function( name ) {
+      this.play = function( name, loop ) {
           // XXXhumph - what to do when play called after pause?
           var sound = sounds[name];
+          loop = !!loop;
           if ( !sound ) {
               throw "Paladin: Speaker does not contain a sound named '" + name + "'";
           }
@@ -101,6 +102,10 @@ define( function ( require ) {
           audio.onended = function() {
               audioList[key] = null;
               delete audioList[key];
+              if ( loop ) {
+                  audio.currentTime = 0;
+                  audio.play();
+              }
           };
 
           audio.play();
