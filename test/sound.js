@@ -273,7 +273,7 @@
     
     var music = p.sound.music;
     music.add('blip', effect);
-    music.muted = false;
+    music.muted = true;
     
     var audio = effect.audio;
     
