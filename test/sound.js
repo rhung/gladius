@@ -267,4 +267,29 @@
     music.play('track');
   });
 
+  test("Speaker.play can loop audio", function() {
+    expect(1);
+    stop();
+    
+    var music = p.sound.music;
+    music.add('blip', effect);
+    music.muted = false;
+    
+    var audio = effect.audio;
+    
+    function onLooped() {
+      var counter = 0;
+      return function loopTest() { counter++; 
+                          if (counter > 2) 
+                            { start(); 
+                              ok(true, "testSpeaker.play loops correctly");  
+                              audio.removeEventListener('ended', loopTest, false);
+                              music.pause();
+                            } 
+                        };
+    }
+    
+    audio.addEventListener('ended', onLooped(), false);
+    music.play('blip', 1);
+  });
 }());
