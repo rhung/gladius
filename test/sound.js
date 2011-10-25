@@ -284,7 +284,7 @@
                             { start(); 
                               ok(true, "testSpeaker.play loops correctly");  
                               audio.removeEventListener('ended', loopTest, false);
-                              music.pause();
+                              audio.onended = { };
                             } 
                         };
     }
